@@ -22,22 +22,31 @@ class ServerTaskSelect : Thread {
             val scan = Scanner(iStream)
             while (scan.hasNext())
                 result += scan.nextLine()
+            scan.close()
+            iStream.close()
         }catch (e: Exception) {
             Log.e("MainActivity", "ServerTaskSelect error")
         }
        Log.w("MainActivity", "JSON: " + result)
 
 
-//        try {
-//            val jsonArray = JSONArray(result)
-//            for (i in 0 until jsonArray.length()) {
-//                jsonList.add(jsonArray.getString(i))
-//            }
-//        } catch (e: Exception) {
-//            Log.e("MainActivity", "JSON parsing error")
-//        }
+        try {
+            val jsonArray = JSONArray(result)
+            MainActivity.candies.clear()
+            for (i in 0 until jsonArray.length()) {
+                val obj = jsonArray.getJSONObject(i)
+                val id = obj.getInt("id")
+                val name = obj.getString("name")
+                val price = obj.getDouble("price")
 
-//        activity.runOnUiThread { activity.updateAutoText(jsonList) }
+                val candy = Candy(id, name, price)
+                MainActivity.candies.add(candy)
+            }
+        } catch (e: Exception) {
+            Log.e("MainActivity", "JSON parsing error")
+        }
+
+        activity.runOnUiThread { activity.showCandies() }
 
     }
 }
