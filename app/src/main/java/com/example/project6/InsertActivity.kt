@@ -22,17 +22,9 @@ class InsertActivity : AppCompatActivity() {
             val name = binding.candyName.text.toString()
             val priceText = binding.candyPrice.text.toString()
 
-            // Check inputs
-            if (name.isEmpty()) {
-                Toast.makeText(this, "Please enter a candy name", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
 
-            val price = priceText.toDoubleOrNull()
-            if (price == null) {
-                Toast.makeText(this, "Please enter a valid price", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+            val price = priceText.toDouble()
+
 
             // Start the server task to insert candy
             ServerTaskInsert(name, price).start()
@@ -40,7 +32,6 @@ class InsertActivity : AppCompatActivity() {
             // Optional: clear input fields after insert
             binding.candyName.text.clear()
             binding.candyPrice.text.clear()
-            Toast.makeText(this, "$name added!", Toast.LENGTH_SHORT).show()
         }
 
     }

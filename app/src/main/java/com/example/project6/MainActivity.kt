@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_reset) {
             total = 0.0
-            Toast.makeText(this, "Reset Successful", Toast.LENGTH_SHORT).show()
             return true
         }
 
@@ -115,7 +114,7 @@ class MainActivity : AppCompatActivity() {
 
             button.setOnClickListener {
                 total += candy.getPrice()
-                Toast.makeText(this, "${nf.format(total)}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "${nf.format(total)}", Toast.LENGTH_LONG).show()
             }
 
             gridLayout.addView(button)
